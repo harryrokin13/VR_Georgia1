@@ -7,11 +7,11 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src="./dist/aframe-master.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
-    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+    <!--<script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> -->
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+    <!--<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>-->
     <script src="https://unpkg.com/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
     <style>
         body { margin:0; padding:0; }
@@ -306,8 +306,9 @@
             var texture = document.getElementById('mozvr-logo');
             texture.setAttribute('src', img);
             var yeartexture = document.getElementById('timeline_Insights');
+           // var yearImageloc = 'Timeline_Images/'+selectedyear+'.jpg';
             var yearImageloc = 'Timeline_Images/test.png';
-            yeartexture.setAttribute('src', yearImageloc);
+            yeartexture.setAttribute('src', yearImageloc);  
         
             //document.getElementById('image').appendChild(texture);
             // When a click event occurs on a feature in the states layer, open a popup at the
@@ -344,7 +345,7 @@
       var year19Rot = year19.getAttribute('rotation');
       var x = -Math.abs(year19Pos.x);
       var z = -Math.abs(year19Pos.z);
-      var pos = x+' '+0+' '+z;
+      var pos = {x:Number(x), y: 0, z: Number(z)};
       //var yRot = 180+year19Rot.y;
      // var rot = 0+' '+yRot+' '+0;
       
@@ -359,27 +360,28 @@
           var temp = document.getElementById(prevYear);
           var currentYearEntity = document.getElementById(yearCounter);
 
-          if (temp.hasLoaded) {
+         // if (temp.hasLoaded) {
           var tempPos = temp.getAttribute('position');
           var tempRot = temp.getAttribute('rotation');
-          } else {
+          /*} else {
             temp.addEventListener("loaded", function(){
               var tempPos = temp.getAttribute('position');
             var tempRot = temp.getAttribute('rotation');
             });
-          }
-            if (currentYearEntity.hasLoaded) {
+          }*/
+          var tposition = {x:Number(tempPos.x), y:Number(tempPos.y), z:Number(tempPos.z)};
+          //  if (currentYearEntity.hasLoaded) {
               //currentYearEntity.setAttribute('rotation', { x: 0, y: -tempRot.y, z: 0})
           
             currentYearEntity.setAttribute('rotation', '0 0 0')
-            currentYearEntity.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: tempPos});
-            }
+            currentYearEntity.setAttribute('animation', {property: 'position', dur: 1000, to: tposition});
+       /*     }
         else {
             currentYearEntity.addEventListener("loaded", function(){
               currentYearEntity.setAttribute('rotation', '0 0 0')
-            currentYearEntity.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: tempPos});
+            currentYearEntity.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: tposition});
             });
-          }
+          }*/
 /*
           
           currentYearEntity.setAttribute('rotation', { x: 0, y: -tempRot.y, z: 0})
@@ -392,19 +394,20 @@
 
           yearCounter +=1;
         }
-        if(firstload<3){
+        //var xyz = {x:0, y:0, z:2};
+        //if(firstload<3){
           if (year10.hasLoaded) {
             
               year10.setAttribute('rotation', '0 0 0')
-          year10.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: {x: x,y: 0, z:z}});
+          year10.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: pos});
           //year10.setAttribute('rotation', {x: 0,y: yRot, z:0});
       
         } else {
           year10.addEventListener("loaded", function(){
-            year10.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: {x: x,y: 0, z:z}});
+            year10.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', to: pos});
           //year10.setAttribute('rotation', {x: 0,y: yRot, z:0});
           }); 
-        }
+        
       }
         /*
         var xPosition = Math.pow(3.9,2)
