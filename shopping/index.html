@@ -198,14 +198,14 @@
         minZoom: 4.7
     });
     map.on('load', function () {
-        /*var year=document.getElementById(selectedyear);
+        var year=document.getElementById(selectedyear);
         var anim=document. createElement('a-animation');
         anim.setAttribute('attribute','scale');
         anim.setAttribute('to','2 2 1');
-        var coloranim=document.createElement('a-animation');
-        coloranim.setAttribute('attribute','material.color');
-        coloranim.setAttribute('to','white');
-        year.appendChild(anim);*/
+        //var coloranim=document.createElement('a-animation');
+        //coloranim.setAttribute('attribute','material.color');
+        //coloranim.setAttribute('to','white');
+        year.appendChild(anim);
        /// year.appendChild(coloranim);
 
         var c = document.querySelector('#map canvas');
@@ -255,47 +255,60 @@
     function loadMap(selectedyear){
         console.log("in load map. counter: "+firstload);
         
-
-            //year.appendChild(rotationanim);
-            //var coloranim=document.createElement('a-animation');
-            //coloranim.setAttribute('attribute','material.color');
-            //coloranim.setAttribute('to','white');
-            //year.appendChild(anim);
-           // year.appendChild(coloranim);
+        var year=document.getElementById(selectedyear);
+        year.setAttribute('position','0 0 -3.9');
+        year.setAttribute('rotation', '0 0 0');
+        var anim=document. createElement('a-animation');
+        anim.setAttribute('attribute','scale');
+        anim.setAttribute('to','3 3 3');
+        //var coloranim=document.createElement('a-animation');
+        //coloranim.setAttribute('attribute','material.color');
+        //coloranim.setAttribute('to','white');
+        year.appendChild(anim);
         
         var layer = 'georgia_'+previousSelectedYear;
         if(firstload>1)
         {
-
-           yearAnimation(selectedyear);
+          
+            var prev = document.getElementById(previousSelectedYear);
+            prev.setAttribute('position','-2.34 0 -3.12')
+            prev.setAttribute('rotation','0 45 0');
+            var anim1=document. createElement('a-animation');
+            anim1.setAttribute('attribute','scale');
+            anim1.setAttribute('to','1 1 1');
+            prev.appendChild(anim1);
+          // yearAnimation(selectedyear);
            //var year10 = document.getElementById('2014');
-//year10.setAttribute('position', '0 0 -3');
-//year10.setAttribute('animation', {property: 'position', dur: 1000, easing: 'easeInSine', loop: true, to: '0 0 -3'});
-/*
+          /*
            var animation = document.createElement("a-animation");
-      
-      animation.setAttribute("attribute","position");
-      animation.setAttribute("from","3.9 0 0");
-      animation.setAttribute("to","0 0 -3.8)");//{ x: -year19Pos.x, y: 0, z: -year19Pos.z });
-      animation.setAttribute("dur","1000");
-      animation.setAttribute("delay","500");
-      year10.appendChild(animation);*/
-
+          
+          animation.setAttribute("attribute","position");
+          animation.setAttribute("from","3.9 0 0");
+          animation.setAttribute("to","0 0 -3.8)");//{ x: -year19Pos.x, y: 0, z: -year19Pos.z });
+          animation.setAttribute("dur","1000");
+          animation.setAttribute("delay","500");
+          year10.appendChild(animation);*/
+          if(selectedyear<2020){
+          
+                var nextYear = document.getElementById(selectedyear+1);
+                nextYear.setAttribute('position','2.34 0 -3.12');
+                nextYear.setAttribute('rotation','0 -45 0');
+              }
+          if(previousSelectedYear>2010)
+          {
+            var hideOldPreYr = document.getElementById(previousSelectedYear-1)
+            hideOldPreYr.setAttribute('position','0 0 3.9');
+          }
             console.log(layer);
             var visibility = map.getLayoutProperty(layer, 'visibility');
 
             if (visibility === 'visible') 
                 map.setLayoutProperty(layer, 'visibility', 'none');
-            /*
-            var prev = document.getElementById(previousSelectedYear);
-            var anim1=document. createElement('a-animation');
-            anim1.setAttribute('attribute','scale');
-            anim1.setAttribute('to','1 1 1');
-            prev.appendChild(anim1);
-            var coloranim=document.createElement('a-animation');
-            coloranim.setAttribute('attribute','material.color');
-            coloranim.setAttribute('to','blue');
-            prev.appendChild(coloranim);*/
+            
+            //var coloranim=document.createElement('a-animation');
+            //coloranim.setAttribute('attribute','material.color');
+            //coloranim.setAttribute('to','blue');
+            //prev.appendChild(coloranim);
             
           }
           previousSelectedYear = selectedyear;
